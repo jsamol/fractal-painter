@@ -1,10 +1,9 @@
 module Main where
 import Mandelbrot
+import Plot
+import Graphics.GD
 
 fileName = "mandelbrot.png"
 
-draw :: IO ()
-draw = do
-    x <- getLine
-    y <- getLine
-    drawMandelbrot (read x :: Int, read y :: Int) fileName
+draw :: Size -> Bound -> IO()
+draw size bound = drawMandelbrot size bound fileName
