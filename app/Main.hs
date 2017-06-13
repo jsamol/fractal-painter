@@ -28,8 +28,8 @@ runTests:: IO Counts
 runTests = do
                 runMandelbrotTests
                 runPlotTests
-				
--- |Run all quick tests       
+
+-- |Run all quick tests
 runQuickTests:: IO ()
 runQuickTests = do
                 runQuickCheckMandelbrot
