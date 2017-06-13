@@ -8,6 +8,7 @@ module Main where
 import Mandelbrot
 import Plot
 import Graphics.GD
+import Test.HUnit
 
 -- |Name of generating file
 fileName = "mandelbrot.png"
@@ -21,3 +22,16 @@ draw :: Size -- ^ Resolution of generating image
         -> Bound -- ^ Four coordinates of funtion bound
         -> IO() -- ^ Result: Save file
 draw size bound = drawMandelbrot size bound fileName
+
+-- |Run all tests
+runTests:: IO Counts
+runTests = do
+                runMandelbrotTests
+                runPlotTests
+				
+-- |Run all quick tests       
+runQuickTests:: IO ()
+runQuickTests = do
+                runQuickCheckMandelbrot
+                runQuickCheckPlot
+                

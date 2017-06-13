@@ -9,8 +9,12 @@ module Plot
     ( Coord
     , Bound
     , drawPlot
+   , runPlotTests
+   , runQuickCheckPlot
     ) where
 import Graphics.GD
+import Test.HUnit
+import Test.QuickCheck
 
 -- |Type of coordinate point
 type Coord = (Double ,Double) -- ^ X, Y coordinate
@@ -43,3 +47,25 @@ pixelToCoord (x,y) (xsize, ysize) ((x1,y1), (x2,y2)) =
     ((((x2 - x1) * xscale) + x1), (((y1 - y2) * yscale) + y2))
         where xscale = fromIntegral x / fromIntegral xsize
               yscale = fromIntegral y / fromIntegral ysize
+
+test1 = TestCase (assertEqual "pixels1" [(0,0), (0,1), (1,0), (1,1)] (getPixels (2,2)))
+test2 = TestCase (assertEqual "pixels2" [] (getPixels (0,0)))
+test3 = TestCase (assertEqual "coord1"  (100.0,100.0) (pixelToCoord (0,0) (1, 1) ((100,100), (100,100))))
+test4 = TestCase (assertEqual "coord2"  (0.0,1.0) (pixelToCoord (100,100) (1000, 1000) ((0,1), (0,1))))
+tests = TestList [TestLabel "test1" test1, TestLabel "test2" test2, TestLabel "test3" test3, TestLabel "test4" test4]
+
+-- |Run tests
+runPlotTests :: IO Counts
+runPlotTests = do runTestTT tests
+
+pixels  :: Size -> Bool
+pixels (x,y) =  (toBool $ map (< (x,y)) $ getPixels (x,y)) == True
+
+toBool     ::  [Bool] -> Bool
+toBool []              = True
+toBool (x:xs)  
+    | x == False        = False
+    | otherwise         = toBool xs
+
+-- |Run quick tests
+runQuickCheckPlot = do quickCheck pixels 
