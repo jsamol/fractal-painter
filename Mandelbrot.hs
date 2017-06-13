@@ -1,3 +1,10 @@
+{-|
+Module      : Mandelbrot
+Description : Algorithm of Mandelbrot functions
+
+Module which get resolution of image and points and calculate
+correct color to point based on Mandelbrot algorithm
+-}
 module Mandelbrot (drawMandelbrot) where
 import Data.Complex
 import Graphics.GD

@@ -1,3 +1,10 @@
+{-|
+Module      : Plot
+Description : Draw the image
+
+Module which change resolution to array of points
+and draw the image based on colors from Mandelbrot
+-}
 module Plot
     ( Coord
     , Bound
@@ -5,8 +12,11 @@ module Plot
     ) where
 import Graphics.GD
 
+-- |Type of coordinate point
 type Coord = (Double ,Double) -- ^ X, Y coordinate
-type Bound = (Coord ,Coord) --  -- ^ Left top ,right bottom bound
+
+-- |Type of bound the function
+type Bound = (Coord ,Coord) -- ^ Left top and right bottom bound
 
 -- |Draw image
 drawPlot :: (Coord -> Color) -- ^ Function converting a point to the appropriate color
@@ -15,8 +25,8 @@ drawPlot :: (Coord -> Color) -- ^ Function converting a point to the appropriate
             -> String -- ^ Name of generating file
             -> IO() -- ^ Result: Save file
 drawPlot f size bound fileName = do
-    image <- newImage size
-    mapM (\p -> let coords = pixelToCoord p size bound in setPixel p (f coords) image) (getPixels size)
+    image <- newImage size 
+    mapM (\p -> let coords = pixelToCoord p size bound in setPixel p (f coords) image) (getPixels size)  
     savePngFile fileName image
 
 -- |Draw points from resolution 
