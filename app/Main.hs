@@ -10,12 +10,20 @@ import Plot
 import Graphics.GD
 import Test.HUnit
 
--- |Name of generating file
+-- |Name of the generated file
 fileName = "mandelbrot.png"
+
+-- |Dimensions of the generated image
+imageDimensions :: Size
+imageDimensions = (600, 600)
+
+-- |Drawing area for the Mandelbrot Set
+drawingArea :: Bound
+drawingArea = ((-1.9, 1.3), (0.7, -1.3))
 
 -- |Main function
 main:: IO()
-main = draw (1200, 1200) ((-1.9, 1.3), (0.7, -1.3))
+main = draw imageDimensions drawingArea
 
 -- |Invoke function to draw Mandelbrot fractal
 draw :: Size -- ^ Resolution of generating image
