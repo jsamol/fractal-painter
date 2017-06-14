@@ -23,13 +23,7 @@ drawingArea = ((-1.9, 1.3), (0.7, -1.3))
 
 -- |Main function
 main:: IO()
-main = draw imageDimensions drawingArea
-
--- |Invoke function to draw Mandelbrot fractal
-draw :: Size -- ^ Resolution of generating image
-        -> Bound -- ^ Four coordinates of funtion bound
-        -> IO() -- ^ Result: Save file
-draw size bound = drawMandelbrot size bound fileName
+main = drawMandelbrot imageDimensions drawingArea fileName
 
 -- |Run all tests
 runTests:: IO Counts
