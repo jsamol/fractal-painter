@@ -15,7 +15,7 @@ fileName = "mandelbrot.png"
 
 -- |Main function
 main:: IO()
-main = putStrLn "Welcome in program, invoke function 'draw' to draw fractal"
+main = draw (1200, 1200) ((-1.9, 1.3), (0.7, -1.3))
 
 -- |Invoke function to draw Mandelbrot fractal
 draw :: Size -- ^ Resolution of generating image
@@ -34,4 +34,3 @@ runQuickTests:: IO ()
 runQuickTests = do
                 runQuickCheckMandelbrot
                 runQuickCheckPlot
-                
